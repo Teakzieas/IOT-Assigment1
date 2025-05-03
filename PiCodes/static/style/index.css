@@ -1,0 +1,623 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background-color: #f0f2f5;
+    color: #333;
+}
+
+.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+}
+
+header h1 {
+    color: #2c3e50;
+    font-weight: 500;
+}
+
+.time-date {
+    text-align: right;
+}
+
+#time {
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+#date {
+    color: #7f8c8d;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.panel {
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    padding: 20px;
+    overflow: hidden;
+}
+
+.panel h2 {
+    margin-bottom: 15px;
+    color: #2c3e50;
+    font-weight: 500;
+    font-size: 1.2rem;
+    border-bottom: 1px solid #ecf0f1;
+    padding-bottom: 10px;
+}
+
+/* Weather Panel */
+.weather {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.weather-content {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.current-weather {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.temp {
+    font-size: 3rem;
+    font-weight: 300;
+}
+
+.condition {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1.2rem;
+}
+
+.forecast {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+}
+
+.forecast-day {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.forecast-day i {
+    font-size: 1.5rem;
+    color: #3498db;
+}
+
+/* Calendar Panel */
+.calendar {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.events {
+    list-style-type: none;
+}
+
+.event {
+    display: flex;
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.event-time {
+    width: 80px;
+    color: #7f8c8d;
+}
+
+.event-title {
+    flex-grow: 1;
+}
+
+/* Quick Controls Panel */
+.quick-controls {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.controls-grid {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.control-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 12px;
+    gap: 15px;
+    width: 100%;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.control-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.control-header span {
+    font-weight: 500;
+    font-size: 1.1rem;
+    color: #2c3e50;
+}
+
+.control-header i {
+    font-size: 1.8rem;
+    color: #3498db;
+}
+
+.control-item i {
+    font-size: 2.5rem;
+    color: #3498db;
+    margin-bottom: 10px;
+}
+
+.curtain-control {
+    padding: 20px;
+}
+
+.curtain-slider {
+    width: 100%;
+    height: 10px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #d3d3d3;
+    outline: none;
+    border-radius: 5px;
+}
+
+.curtain-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: #3498db;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.curtain-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: #3498db;
+    cursor: pointer;
+    border-radius: 50%;
+}
+
+.slider-value {
+    font-size: 1rem;
+    color: #7f8c8d;
+    margin-top: 5px;
+}
+
+/* Switch styling */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 24px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #2196F3;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.temp-control {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.temp-btn {
+    background-color: #e0e0e0;
+    border: none;
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Notifications Panel */
+.notifications {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.notification-list {
+    list-style-type: none;
+}
+
+.notification {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 0;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.notification i {
+    background-color: #eaf2fd;
+    color: #3498db;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+}
+
+.notification-time {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+    margin-top: 4px;
+}
+
+/* Sun Time Panel */
+.sun-time {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.sun-times {
+    list-style-type: none;
+}
+
+.sun-times li {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #ecf0f1;
+}
+
+.sun-times li:last-child {
+    border-bottom: none;
+}
+
+.sun-times span {
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+    }
+    
+    /* Ensure all panels take up full width and stack in order */
+    .panel {
+        grid-column: 1 !important;
+    }
+    
+    /* Set explicit order for all panels */
+    .quick-controls {
+        grid-row: 1;
+    }
+    
+    .energy-usage {
+        grid-row: 2;
+    }
+    
+    .weather {
+        grid-row: 3;
+    }
+    
+    .temperature {
+        grid-row: 4;
+    }
+    
+    .water-usage {
+        grid-row: 5;
+    }
+    
+    .light-levels {
+        grid-row: 6;
+    }
+    
+    /* Make the navigation buttons appear at the bottom */
+    .navigation-buttons {
+        grid-row: 7;
+    }
+}
+
+/* Curtain Presets */
+.curtain-presets {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+    width: 100%;
+}
+
+.preset-btn {
+    background-color: #f0f2f5;
+    color: #2c3e50;
+    border: 1px solid #e0e0e0;
+    border-radius: 20px;
+    padding: 8px 16px;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-weight: 500;
+}
+
+.preset-btn:hover {
+    background-color: #e8f4fc;
+    border-color: #3498db;
+    color: #3498db;
+}
+
+.preset-btn:active {
+    background-color: #3498db;
+    color: white;
+    transform: scale(0.98);
+}
+
+/* Graph Panels */
+.graph-panel {
+    grid-column: span 1;
+}
+
+.energy-usage {
+    grid-column: 2;
+    grid-row: 1;
+    height: 350px;
+}
+
+/* Set specific grid positions for each panel to avoid overlap */
+.quick-controls {
+    grid-column: 1;
+    grid-row: 1;
+}
+
+.energy-usage {
+    grid-column: 2;
+    grid-row: 1;
+}
+
+.weather {
+    grid-column: 3;
+    grid-row: 1;
+}
+
+.temperature {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+.water-usage {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.light-levels {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.navigation-buttons {
+    grid-column: 1 / span 3;
+    grid-row: 3;
+}
+
+/* Add some customization for the curtain status panel */
+.energy-usage .graph-summary {
+    border-top-color: rgba(52, 152, 219, 0.3);
+}
+
+.energy-usage .summary-value {
+    color: #3498db;
+}
+
+.temperature {
+    grid-column: 1;
+    grid-row: 2;
+}
+
+/* Update water-usage class to be more general since it's now used for humidity */
+.water-usage {
+    grid-column: 2;
+    grid-row: 2;
+}
+
+.light-levels {
+    grid-column: 3;
+    grid-row: 2;
+}
+
+.graph-container {
+    height: 200px;
+    position: relative;
+    margin-bottom: 0;
+}
+
+/* Graph Controls */
+.graph-controls {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding-top: 10px;
+    border-top: 1px dashed #ecf0f1;
+}
+
+.graph-summary {
+    display: flex;
+    gap: 20px;
+}
+
+.range-toggle-container {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    padding: 5px 12px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s;
+    float:right;
+}
+
+.overlay-toggle-container {
+    display: flex;
+    align-items: center;
+    background-color: #f8f9fa;
+    border-radius: 20px;
+    padding: 5px 12px;
+    border: 1px solid #e0e0e0;
+    transition: all 0.2s;
+}
+
+.overlay-toggle-container:hover {
+    background-color: #e8f4fc;
+    border-color: #3498db;
+}
+
+.overlay-checkbox {
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.overlay-label {
+    color: #2c3e50;
+    cursor: pointer;
+    user-select: none;
+    font-size: 0.9rem;
+}
+
+/* Remove the old graph-overlay-toggle styles that are no longer needed */
+.graph-overlay-toggle {
+    display: none;
+}
+
+/* Update the graph summary style since it's now part of graph-controls */
+.summary-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.summary-label {
+    font-size: 0.8rem;
+    color: #7f8c8d;
+}
+
+.summary-value {
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: #2c3e50;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        grid-auto-rows: auto;
+    }
+    
+    /* Force all panels to take up the full width */
+    .panel, .navigation-buttons {
+        grid-column: 1 !important;
+    }
+    
+    /* Set explicit order for all panels on mobile */
+    .quick-controls {
+        grid-row: 1 !important;
+    }
+    
+    .energy-usage {
+        grid-row: 2 !important;
+    }
+    
+    .weather {
+        grid-row: 3 !important;
+    }
+    
+    .temperature {
+        grid-row: 4 !important;
+    }
+    
+    .water-usage {
+        grid-row: 5 !important;
+    }
+    
+    .light-levels {
+        grid-row: 6 !important;
+    }
+    
+    .navigation-buttons {
+        grid-row: 7 !important;
+    }
+}

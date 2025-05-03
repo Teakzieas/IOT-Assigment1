@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Trigger Setup</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/automation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/automation-list.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="actions-bar">
+            <button id="backButton" class="btn back-btn">
+                <i class="fas fa-arrow-left"></i> Back to Automations
+            </button>
+        </div>
+        
+        <h1>Automation Trigger Setup</h1>
+        
+        <form id="triggerForm">
+            <div class="section-container trigger-section">
+                <h2>If (Trigger)</h2>
+                <div class="form-group">
+                    <label for="triggerType">Select Trigger Type:</label>
+                    <select id="triggerType" name="triggerType">
+                        <option value="">-- Select Trigger --</option>
+                        <option value="time">Time</option>
+                        <option value="lightInside">Light Inside</option>
+                        <option value="lightOutside">Light Outside</option>
+                        <option value="temperature">Temperature</option>
+                        <option value="humidity">Humidity</option>
+                        <option value="humanPresence">Human Presence</option>
+                    </select>
+                </div>
+                
+                <div id="conditionContainer" class="form-group hidden">
+                    <!-- This will be populated based on the selected trigger type -->
+                </div>
+                
+                <div id="valueContainer" class="form-group hidden">
+                    <!-- This will be populated based on the selected condition -->
+                </div>
+            </div>
+            
+            <div class="section-container action-section">
+                <h2>Then (Action)</h2>
+                <div class="form-group">
+                    <label for="actionType">Select Action Type:</label>
+                    <select id="actionType" name="actionType">
+                        <option value="">-- Select Action --</option>
+                        <option value="curtain">Set Curtain Position</option>
+                    </select>
+                </div>
+                
+                <div id="actionContainer" class="form-group hidden">
+                    <!-- This will be populated based on the selected action type -->
+                </div>
+            </div>
+            
+            <!-- Priority section removed -->
+            
+            <div class="form-group" id="submitContainer">
+                <button type="submit" id="createTrigger">Create Automation</button>
+            </div>
+        </form>
+        
+        <div id="previewTrigger" class="hidden">
+            <h2>Automation Preview</h2>
+            <div id="triggerPreviewContent"></div>
+        </div>
+    </div>
+        
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/automation.js') }}"></script>
+</body>
+
+</html>

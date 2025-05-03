@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Assistant Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/index.css') }}">
+</head>
+
+<body>
+    <div class="dashboard">
+        <header>
+            <h1>Home Dashboard</h1>
+            <div class="time-date">
+                <div id="time">12:00</div>
+                <div id="date">Monday, January 1</div>
+            </div>
+        </header>
+
+        <div class="dashboard-grid">
+            <section class="panel weather">
+                <h2>Weather</h2>
+                <div class="weather-content">
+                    <div class="current-weather">
+                        <div class="temp">{{current["temp"]}}°</div>
+                        <div class="condition"><i class="{{current["icon"]}}"></i> {{current["description"]}}</div>
+                    </div>
+                    <div class="forecast">
+                        <div class="forecast-day">
+                            <div>{{ forecast[0]["day"] }}</div>
+                            <i class="{{ forecast[0]["icon"]}}"></i>
+                            <div>{{forecast[0]["temp"]}}°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div>{{ forecast[1]["day"] }}</div>
+                            <i class="{{ forecast[1]["icon"] }}"></i>
+                            <div>{{forecast[1]["temp"]}}°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div>{{ forecast[2]["day"] }}</div>
+                            <i class="{{ forecast[2]["icon"] }}"></i>
+                            <div>{{forecast[2]["temp"]}}°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div>{{ forecast[3]["day"] }}</div>
+                            <i class="{{ forecast[3]["icon"] }}"></i>
+                            <div>{{forecast[3]["temp"]}}°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div>{{ forecast[4]["day"] }}</div>
+                            <i class="{{ forecast[4]["icon"] }}"></i>
+                            <div>{{forecast[4]["temp"]}}°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div>{{ forecast[5]["day"] }}</div>
+                            <i class="{{ forecast[5]["icon"] }}"></i>
+                            <div>{{forecast[5]["temp"]}}°</div>
+                        </div>
+                        <div class="forecast-day">
+                            <div>{{ forecast[6]["day"] }}</div>
+                            <i class="{{ forecast[6]["icon"] }}"></i>
+                            <div>{{forecast[6]["temp"]}}°</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+          
+
+            <section class="panel quick-controls">
+                <h2>Home Controls</h2>
+                <div class="controls-grid">
+                    <div class="control-item curtain-control">
+                        <div class="control-header">
+                            <span>Curtains</span>
+                            <i class="fas fa-blinds"></i>
+                        </div>
+                        <input type="range" min="0" max="100" value="50" class="curtain-slider" id="curtainSlider">
+                        <div class="slider-value"><span id="curtainValue">50</span>%</div>
+                        <div class="curtain-presets">
+                            <button class="preset-btn" data-value="0">Closed</button>
+                            <button class="preset-btn" data-value="50">Half</button>
+                            <button class="preset-btn" data-value="100">Open</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel graph-panel energy-usage">
+                <h2>Curtain Status</h2>
+                <div class="graph-container">
+                    <canvas id="curtainStatusChart"></canvas>
+                    <div class="graph-controls">
+                        <div class="graph-summary">
+
+                        </div>
+                        <br>
+                        <div class="overlay-toggle-container">
+                            <input type="checkbox" id="curToday" class="overlay-checkbox">
+                            <label for="tempOverlayCurtain" class="overlay-label">Today</label>
+                        </div>
+                        <div class="overlay-toggle-container">
+                            <input type="checkbox" id="curHour" class="overlay-checkbox">
+                            <label for="tempOverlayCurtain" class="overlay-label">hour</label>
+                        </div>
+                        <div class="overlay-toggle-container">
+                            <input type="checkbox" id="cur20Min" class="overlay-checkbox" checked>
+                            <label for="tempOverlayCurtain" class="overlay-label">20 min</label>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel graph-panel temperature">
+                <h2>Temperature History</h2>
+                <div class="graph-container">
+                    <canvas id="temperatureChart"></canvas>
+                </div>
+                <div class="graph-controls">
+                    <div class="graph-summary">
+
+                    </div>
+                    <br>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="tempToday" class="overlay-checkbox">
+                        <label for="tempOverlayCurtain" class="overlay-label">Today</label>
+                    </div>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="tempHour" class="overlay-checkbox">
+                        <label for="tempOverlayCurtain" class="overlay-label">hour</label>
+                    </div>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="temp20Min" class="overlay-checkbox" checked>
+                        <label for="tempOverlayCurtain" class="overlay-label">20 min</label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel graph-panel water-usage">
+                <h2>Humidity History</h2>
+                <div class="graph-container">
+                    <canvas id="humidityChart"></canvas>
+                </div>
+                <div class="graph-controls">
+                    <div class="graph-summary">
+
+                    </div>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="humToday" class="overlay-checkbox">
+                        <label for="tempOverlayCurtain" class="overlay-label">Today</label>
+                    </div>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="humHour" class="overlay-checkbox">
+                        <label for="tempOverlayCurtain" class="overlay-label">hour</label>
+                    </div>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="hum20Min" class="overlay-checkbox" checked>
+                        <label for="tempOverlayCurtain" class="overlay-label">20 min</label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="panel graph-panel light-levels">
+                <h2>Light Levels</h2>
+                <div class="graph-container">
+                    <canvas id="lightChart"></canvas>
+                </div>
+                <div class="graph-controls">
+                    <div class="graph-summary">
+
+                    </div>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="lightToday" class="overlay-checkbox">
+                        <label for="lightToday" class="overlay-label">Today</label>
+                    </div>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="lightHour" class="overlay-checkbox">
+                        <label for="lightHour" class="overlay-label">hour</label>
+                    </div>
+                    <div class="overlay-toggle-container">
+                        <input type="checkbox" id="light20Min" class="overlay-checkbox" checked>
+                        <label for="light20Min" class="overlay-label">20 min</label>
+                    </div>
+                </div>
+            </section>
+
+            <div class="navigation-buttons">
+                <a href="/automations" class="nav-btn">
+                    <i class="fas fa-cogs"></i>
+                    <span>Manage Automations</span>
+                </a>
+            </div>
+
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="{{ url_for('static', filename='js/index.js') }}"></script>
+
+    <style>
+        .navigation-buttons {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .nav-btn {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 15px 20px;
+            background-color: #4285f4;
+            color: white;
+            border-radius: 10px;
+            text-decoration: none;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+
+        .nav-btn:hover {
+            background-color: #3367d6;
+            transform: translateY(-2px);
+        }
+
+        .nav-btn i {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+
+        .nav-btn span {
+            font-weight: 600;
+        }
+    </style>
+</body>
+
+</html>

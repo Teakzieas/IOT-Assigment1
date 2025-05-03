@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Rules</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/automation.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style/automation-list.css') }}">
+</head>
+
+<body>
+    <div class="container">
+        <div class="actions-bar">
+            <a href="/" class="btn back-btn">
+                <i class="fas fa-home"></i> Home
+            </a>
+            <a href="/automation" class="btn create-btn">
+                <i class="fas fa-plus"></i> Create New Automation
+            </a>
+        </div>
+        
+        <h1>Automation Rules</h1>
+        
+        <div class="automations-container">
+            {% if automations %}
+                {% for automation in automations %}
+                    <div class="automation-card" data-id="{{ automation.id }}" data-priority="{{ automation.priority }}">
+                        <div class="automation-header">
+                            <div class="automation-title">
+                                <div class="drag-handle">
+                                    <i class="fas fa-grip-vertical"></i>
+                                </div>
+                                <h3>{{ get_automation_title(automation) }}</h3>
+                                <span class="automation-id">#{{ automation.id }}</span>
+                            </div>
+                            <div class="priority-badge" title="Priority Level">
+                                <i class="fas fa-layer-group"></i>
+                                <span>{{ automation.priority }}</span>
+                            </div>
+                        </div>
+                        
+                        <div class="automation-content">
+                            <div class="automation-section trigger-section">
+                                <div class="section-icon">
+                                    <i class="fas {{ get_trigger_icon(automation.trigger_type) }}"></i>
+                                </div>
+                                <div class="section-details">
+                                    <h4>Trigger</h4>
+                                    <p>{{ get_trigger_description(automation) }}</p>
+                                </div>
+                            </div>
+                            
+                            <div class="automation-arrow">
+                                <i class="fas fa-arrow-right"></i>
+                            </div>
+                            
+                            <div class="automation-section action-section">
+                                <div class="section-icon">
+                                    <i class="fas {{ get_action_icon(automation.action_type) }}"></i>
+                                </div>
+                                <div class="section-details">
+                                    <h4>Action</h4>
+                                    <p>{{ get_action_description(automation) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="automation-footer">
+                            <span class="created-date">Created: {{ automation.created_at.strftime('%d %b %Y, %H:%M') }}</span>
+                            <div class="automation-actions">
+                                <a href="/automation?edit={{ automation.id }}" class="action-btn" title="Edit">
+                                    <i class="fas fa-edit"></i>
+                                </a>
+                                <button class="action-btn delete-btn" title="Delete" onclick="deleteAutomation({{ automation.id }})">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <div class="no-automations">
+                    <i class="fas fa-robot"></i>
+                    <p>No automation rules found</p>
+                    <a href="/automation" class="btn">Create your first automation</a>
+                </div>
+            {% endif %}
+        </div>
+        
+        {% if automations|length > 1 %}
+        <div class="reorder-feedback">
+            Drag automations to reorder their priorities
+        </div>
+        <button class="save-order">
+            <i class="fas fa-save"></i> Save Order
+        </button>
+        {% endif %}
+    </div>
+
+    <script src="{{ url_for('static', filename='js/automation-list.js') }}"></script>
+</body>
+
+</html>
